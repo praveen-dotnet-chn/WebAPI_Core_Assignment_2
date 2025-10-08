@@ -5,6 +5,7 @@ namespace WebAPI_Core_Assignment_2.Repository
 {
     public class EmployeeRepository : IEmployee
     {
+        //Creating the employee object with default values
         private static List<Employee> employees = new List<Employee>
         {
             new Employee
@@ -40,12 +41,12 @@ namespace WebAPI_Core_Assignment_2.Repository
                 Email = "Kishore@gmail.com",
             },
         };
-
+        //adding the emp object to the list 
         public void AddEmployee(Employee emp)
         {
             employees.Add(emp);
         }
-
+        //Deleting the employee using the id
         public void DeleteEmployee(int id)
         {
             var emp = employees.FirstOrDefault(e => e.Id == id);
@@ -53,21 +54,28 @@ namespace WebAPI_Core_Assignment_2.Repository
                 employees.Remove(emp);
         }
 
+        //returning all employees of type IEnumerable, because it is only for  reading 
         public IEnumerable<Employee> GetAllEmployees()
         {
             return employees;
         }
+        
 
+        //Getting the employee using the id and returning the employee 
         public Employee? GetEmployeeById(int id)
         {
+            //using the linq method to fetch the first employee with the respective id
             return employees.FirstOrDefault(e => e.Id == id);
         }
 
+
+        //Getting the employee department
         public IEnumerable<Employee> GetEmployeesByDept(string dept)
         {
+            //using the linq method to fetch the respective employee using the department
             return employees.Where(e => e.Department?.ToLower() == dept.ToLower());
         }
-
+        //updating the all employee details except id
         public void UpdateEmployee(Employee emp)
         {
             var existing = employees.FirstOrDefault(e => e.Id == emp.Id);
@@ -80,6 +88,7 @@ namespace WebAPI_Core_Assignment_2.Repository
             }
         }
 
+        //updating the employee email using the id
         public void UpdateEmployeeEmail(int id, string email)
         {
             var existing = employees.FirstOrDefault(e => e.Id == id);
